@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import './screens/weather_screen.dart';
 import './providers/weather.dart';
 
-
 void main() {
   return runApp(App());
 }
