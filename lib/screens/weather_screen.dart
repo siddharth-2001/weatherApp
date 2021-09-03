@@ -20,9 +20,42 @@ class _WeatherScreenState extends State<WeatherScreen> {
   var _lat;
   var _long;
   Future<void> getLoc() async {
-    final loc = await Location().getLocation();
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData loc;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    } //checks whether location service is enabled ondevice,
+    //if not it requests the user to enable it and returns if not enabled
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    } //checks whether app has permision to acess location,if not it requests permission
+    //if permission is denied, it returns
+    
+        try{
+           loc = await location.getLocation();
     _lat = loc.latitude;
     _long = loc.longitude;
+
+        }catch(error){
+           ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(error.toString())));
+
+        }
+   
+   
   }
 
   @override
