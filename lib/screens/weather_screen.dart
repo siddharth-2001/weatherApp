@@ -78,7 +78,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 2,
-                    child: MainWeather(),
+                    child: MainWeather(_lat, _long),
                   ),
                   Expanded(
                     flex: 1,

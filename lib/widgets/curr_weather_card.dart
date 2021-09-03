@@ -7,6 +7,9 @@ import '../providers/weather.dart';
 import './weather_card.dart';
 
 class MainWeather extends StatelessWidget {
+  final double _lat;
+  final double _long;
+  MainWeather(this._lat, this._long);
   @override
   Widget build(BuildContext context) {
     final weatherData = Provider.of<WeatherList>(context);
@@ -22,7 +25,7 @@ class MainWeather extends StatelessWidget {
             child: WeatherCard(weatherData.currWeather!)),
         IconButton(
             onPressed: () {
-              //Provider.of<WeatherList>(context, listen: false).fetchWeather();
+              Provider.of<WeatherList>(context, listen: false).fetchWeather(_lat, _long);
             },
             icon: const Icon(
               Icons.replay_outlined,
