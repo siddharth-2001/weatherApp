@@ -43,19 +43,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
       }
     } //checks whether app has permision to acess location,if not it requests permission
     //if permission is denied, it returns
-    
-        try{
-           loc = await location.getLocation();
-    _lat = loc.latitude;
-    _long = loc.longitude;
 
-        }catch(error){
-           ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(error.toString())));
-
-        }
-   
-   
+    try {
+      loc = await location.getLocation();
+      _lat = loc.latitude;
+      _long = loc.longitude;
+    } catch (error) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(error.toString())));
+    }
   }
 
   @override
